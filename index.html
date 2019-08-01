@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Component Playground</title>
+  <base href="./">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="styles.4a2706caecf62b187ba2.css"></head>
+<style>
+  html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+.flex-container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container {
+  margin: 24px;
+  display: grid;
+  grid-template-areas: 
+  '. . .'
+  '. card .'
+  '. . .';
+}
+
+body {
+  background: black;
+}
+
+.card {
+  position: relative;
+    padding: 20px;
+    width: 100%;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 1px rgba(0,0,0,.5);
+    overflow: hidden;
+    text-align: center;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+    text-align: center;
+    width:600px;
+}
+.card .user_photo {
+    position: relative;
+    background: #fff;
+    padding: 5px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 30px;
+    border: 1px solid rgba(0,0,0,.25);
+    align-self: center;
+}
+.user_photo img {
+    width: 150px;
+    border-radius: 50%;
+    align-self: center;
+}
+</style>
+<body>
+  <div class="flex-container">
+
+    <div class="container">
+      <div></div>
+      <div class="card">
+        <div class="user_photo">
+
+          <img id="propic" alt="pic" />
+        </div>
+        <p id="dob"></p>
+      </div>
+    </div>
+  </div>
+</body> 
+<script>
+var res;
+fetch('https://randomuser.me/api/')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(myJson) {
+    var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+    console.log('ai', myJson.results[0]);
+    let dob = myJson.results[0].dob.date;
+    let date = new Date(dob);
+    var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+    var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+
+  var dateText = day + ' ' + monthNames[monthIndex] + ' ' + year;
+    document.getElementById('dob').innerHTML = `<b>My birthday is</b><br /> ${date}`;
+
+    document.getElementById('propic').src = myJson.results[0].picture.medium;
+  });
+</script>
+</html>
